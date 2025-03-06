@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Палаточный лагерь: Визуальная новелла</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="background"></div>
+        <div class="characters"></div>
+        
+        <div class="ui-container">
+            <div class="stats-panel">
+                <div class="stat">
+                    <i class="fas fa-clock"></i>
+                    Время: <span id="time" class="stat-value">10</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-dumbbell"></i>
+                    Силы: <span id="strength" class="stat-value">10</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-star"></i>
+                    Уважение: <span id="respect" class="stat-value">10</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-smile"></i>
+                    Харизма: <span id="charisma" class="stat-value">10</span>
+                </div>
+            </div>
+            
+            <div class="dialog-box">
+                <div class="speaker-name" id="speaker-name"></div>
+                <div class="dialog-text" id="dialog-text"></div>
+                
+                <div class="choices-container" id="choices-container">
+                    <!-- Варианты выбора будут добавляться сюда динамически -->
+                </div>
+                
+                <div class="continue-button" id="continue-button">
+                    <span>▼ Продолжить</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="start-screen" id="start-screen">
+            <h1>Палаточный лагерь</h1>
+            <button id="start-button">Начать игру</button>
+        </div>
+        
+        <div class="end-screen" id="end-screen">
+            <h1 id="end-title">Конец игры</h1>
+            <p id="end-message"></p>
+            <button id="restart-button">Начать сначала</button>
+        </div>
+    </div>
+    
+    <script src="scenario.js"></script>
+    <script src="game.js"></script>
+</body>
+</html> 

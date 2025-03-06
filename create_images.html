@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Создание тестовых изображений</title>
+</head>
+<body>
+    <h1>Создание тестовых изображений</h1>
+    <button id="generateButton">Создать изображения</button>
+    
+    <script>
+        document.getElementById('generateButton').addEventListener('click', function() {
+            // Создаем изображения
+            createAndSaveImage('assets/images/room.jpg', 'Комната', '#3a6ca8');
+            createAndSaveImage('assets/images/school.jpg', 'Школа', '#6a8d56');
+            createAndSaveImage('assets/images/camp.jpg', 'Лагерь', '#7b4d2e');
+            createAndSaveImage('assets/images/vojatiy.jpg', 'Вожатый', '#5d5d8c');
+        });
+        
+        function createAndSaveImage(filename, text, color) {
+            const canvas = document.createElement('canvas');
+            canvas.width = text === 'Вожатый' ? 400 : 1920;
+            canvas.height = text === 'Вожатый' ? 600 : 1080;
+            const ctx = canvas.getContext('2d');
+            
+            // Рисуем фон с градиентом
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, color);
+            gradient.addColorStop(1, '#111');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Добавляем текст
+            ctx.fillStyle = '#fff';
+            ctx.font = `${Math.max(30, canvas.width / 20)}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+            
+            // Сохраняем
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = filename.split('/').pop();
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            console.log(`Изображение ${filename} создано`);
+        }
+    </script>
+</body>
+</html> 
