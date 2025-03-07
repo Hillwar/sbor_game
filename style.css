@@ -253,4 +253,55 @@ body {
     height: 40%;
     background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.7));
     pointer-events: none;
+}
+
+.ending-stats {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    text-align: left;
+}
+
+.ending-stats p {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.ending-stats ul {
+    list-style: none;
+    padding: 0;
+}
+
+.ending-stats li {
+    margin: 8px 0;
+    font-size: 18px;
+}
+
+.choice-button-disabled {
+    background: rgba(50,50,50,0.8) !important;
+    border-color: rgba(100,100,100,0.3) !important;
+    color: rgba(200,200,200,0.5) !important;
+    cursor: not-allowed !important;
+    position: relative;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.tooltip {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.8);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #ff7070;
+    opacity: 0.8;
+}
+
+.choice-button-disabled:hover .tooltip {
+    opacity: 1;
 } 

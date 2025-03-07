@@ -7,7 +7,7 @@ class VisualNovel {
         this.currentScene = null;
         this.isTextAnimating = false;
         this.stats = {
-            time: 10,
+            time: 0,
             strength: 10,
             respect: 10,
             charisma: 10
@@ -40,22 +40,13 @@ class VisualNovel {
         // Инициализация аудио и загрузка изображений
         this.initAudio();
         this.preloadImages();
-        
-        // Инициализируем статистику сразу после загрузки страницы
-        setTimeout(() => {
-            this.updateStatsDisplay();
-        }, 100);
     }
     
     updateStatsDisplay() {
-        // Добавляем проверку на существование элементов
         if (this.timeElement) this.timeElement.textContent = this.stats.time;
         if (this.strengthElement) this.strengthElement.textContent = this.stats.strength;
         if (this.respectElement) this.respectElement.textContent = this.stats.respect;
         if (this.charismaElement) this.charismaElement.textContent = this.stats.charisma;
-        
-        // Отладочная информация
-        console.log("Обновление статистики:", this.stats);
     }
     
     setupEventListeners() {
@@ -69,10 +60,8 @@ class VisualNovel {
         
         this.continueButton.addEventListener('click', () => {
             if (this.isTextAnimating) {
-                // Если текст еще анимируется, показать его полностью
                 this.completeTextAnimation();
             } else if (this.currentScene.nextScene) {
-                // Переход к следующей сцене
                 this.loadScene(this.currentScene.nextScene);
             }
         });
@@ -87,47 +76,55 @@ class VisualNovel {
         audioButton.classList.add('audio-control');
         audioButton.innerHTML = '<i class="fas fa-volume-up"></i>';
         
-        // Добавляем кнопку после создания панели статистики
-        setTimeout(() => {
-            const statsPanel = document.querySelector('.stats-panel');
-            if (statsPanel) {
-                statsPanel.appendChild(audioButton);
-                
-                let isMuted = false;
-                audioButton.addEventListener('click', () => {
-                    isMuted = !isMuted;
-                    this.backgroundMusic.muted = isMuted;
-                    audioButton.innerHTML = isMuted ? 
-                        '<i class="fas fa-volume-mute"></i>' : 
-                        '<i class="fas fa-volume-up"></i>';
-                });
-            }
-        }, 100);
+        const statsPanel = document.querySelector('.stats-panel');
+        if (statsPanel) {
+            statsPanel.appendChild(audioButton);
+            
+            let isMuted = false;
+            audioButton.addEventListener('click', () => {
+                isMuted = !isMuted;
+                this.backgroundMusic.muted = isMuted;
+                audioButton.innerHTML = isMuted ? 
+                    '<i class="fas fa-volume-mute"></i>' : 
+                    '<i class="fas fa-volume-up"></i>';
+            });
+        }
     }
     
     preloadImages() {
-        const imagePaths = new Set();
-        Object.values(this.scenario).forEach(scene => {
-            if (scene.background) imagePaths.add(scene.background);
-            if (scene.character) imagePaths.add(scene.character);
-        });
+        // Предзагрузка изображений для плавного отображения
+        const imagesToPreload = [];
         
-        imagePaths.forEach(path => {
-            const img = new Image();
-            img.src = path;
-            console.log(`Загружаю изображение: ${path}`);
+        // Собираем все уникальные пути к изображениям из сценария
+        for (const sceneId in this.scenario) {
+            const scene = this.scenario[sceneId];
+            
+            if (scene.background && !imagesToPreload.includes(scene.background)) {
+                imagesToPreload.push(scene.background);
+            }
+            
+            if (scene.character && !imagesToPreload.includes(scene.character)) {
+                imagesToPreload.push(scene.character);
+            }
+        }
+        
+        // Предзагружаем изображения
+        imagesToPreload.forEach(src => {
+            if (src) {
+                const img = new Image();
+                img.src = src;
+            }
         });
     }
     
     startGame() {
         this.startScreen.style.display = 'none';
-        
-        // Начинаем воспроизведение музыки
-        this.backgroundMusic.play().catch(err => {
-            console.log('Автоматическое воспроизведение звука заблокировано браузером', err);
-        });
-        
         this.loadScene('start');
+        
+        // Запускаем фоновую музыку
+        this.backgroundMusic.play().catch(e => {
+            console.log('Автовоспроизведение музыки заблокировано браузером:', e);
+        });
     }
     
     restartGame() {
@@ -137,96 +134,86 @@ class VisualNovel {
             respect: 10,
             charisma: 10
         };
+        
         this.updateStatsDisplay();
         this.endScreen.style.display = 'none';
         this.loadScene('start');
     }
     
     loadScene(sceneId) {
-        if (!this.scenario[sceneId]) {
-            console.error(`Сцена "${sceneId}" не найдена!`);
+        this.currentScene = this.scenario[sceneId];
+        
+        if (!this.currentScene) {
+            console.error(`Сцена с ID "${sceneId}" не найдена!`);
             return;
         }
         
-        this.currentScene = this.scenario[sceneId];
+        // Если это концовка, показываем экран концовки
+        if (this.currentScene.isEnding) {
+            // Если есть функция onEnter, вызываем ее
+            if (typeof this.currentScene.onEnter === 'function') {
+                this.currentScene.onEnter(this);
+            }
+            
+            this.updateBackground();
+            this.updateCharacters();
+            this.updateDialog();
+            
+            setTimeout(() => {
+                this.showEnding();
+            }, 2000);
+            
+            return;
+        }
         
-        // Выполняем onEnter функцию, если она существует
-        if (this.currentScene.onEnter) {
+        // Если есть функция onEnter, вызываем ее
+        if (typeof this.currentScene.onEnter === 'function') {
             this.currentScene.onEnter(this);
         }
         
-        // Проверяем, является ли сцена финальной
-        if (this.currentScene.isEnding) {
-            this.showEnding();
-            return;
-        }
-        
-        // Отладочная информация для проверки путей к изображениям
-        console.log("Загрузка сцены:", sceneId);
-        console.log("Фон:", this.currentScene.background);
-        console.log("Персонаж:", this.currentScene.character);
-        
-        // Обновляем фон
+        this.updateBackground();
+        this.updateCharacters();
+        this.updateDialog();
+    }
+    
+    updateBackground() {
         if (this.currentScene.background) {
-            this.background.style.backgroundImage = `url('${this.currentScene.background}')`;
+            this.background.style.backgroundImage = `url(${this.currentScene.background})`;
         }
+    }
+    
+    updateCharacters() {
+        this.charactersContainer.innerHTML = "";
         
-        // Обновляем персонажа
-        this.charactersContainer.innerHTML = '';
         if (this.currentScene.character) {
             const characterImg = document.createElement('img');
             characterImg.src = this.currentScene.character;
             characterImg.classList.add('character');
-            // Добавляем обработчик клика для мгновенного завершения текста
-            characterImg.addEventListener('click', (e) => {
-                if (this.isTextAnimating) {
-                    this.completeTextAnimation();
-                    e.stopPropagation(); // Предотвращаем всплытие события
-                }
-            });
             this.charactersContainer.appendChild(characterImg);
         }
+    }
+    
+    updateDialog() {
+        this.speakerName.textContent = this.currentScene.speaker || '';
+        this.dialogText.textContent = '';
+        this.choicesContainer.style.display = 'none';
+        this.continueButton.style.display = 'none';
         
-        // Добавляем обработчик клика на фон
-        this.background.addEventListener('click', () => {
-            if (this.isTextAnimating) {
-                this.completeTextAnimation();
-            }
-        });
-        
-        // Очищаем и обновляем диалоговое окно
-        this.speakerName.textContent = this.currentScene.speaker;
-        this.dialogText.textContent = "";
-        
-        // Анимируем текст
         this.animateText(this.currentScene.text);
-        
-        // Обновляем варианты выбора
-        this.updateChoices();
     }
     
     animateText(text) {
         this.isTextAnimating = true;
-        this.continueButton.style.display = 'none';
-        this.choicesContainer.style.display = 'none';
-        this.dialogText.textContent = '';
-        
         let i = 0;
-        let speed = 30; // Начальная скорость печатания (мс на символ)
+        let speed = 30; // миллисекунды между символами
         
-        // Сохраняем ссылки на функции-обработчики как свойства объекта
+        // Функции для ускорения и сброса скорости анимации
         this.speedUpText = () => {
-            speed = 5; // Ускоренная скорость
+            speed = 5;
         };
         
         this.resetSpeed = () => {
-            speed = 30; // Нормальная скорость
-        };
-        
-        this.completeAnimation = () => {
-            if (this.isTextAnimating) {
-                this.completeTextAnimation();
-            }
+            speed = 30;
         };
         
         // Добавляем обработчики событий
@@ -288,28 +275,88 @@ class VisualNovel {
         }
         
         this.currentScene.choices.forEach(choice => {
+            // Создаем кнопку
             const button = document.createElement('button');
             button.classList.add('choice-button');
             button.textContent = choice.text;
             
-            button.addEventListener('click', () => {
-                this.makeChoice(choice);
-            });
+            // Проверяем, не уйдет ли какая-то характеристика в 0 или ниже
+            let willMakeStatZero = false;
+            let statThatWillBeZero = "";
+            
+            // Проверяем эффекты выбора
+            if (choice.effects) {
+                // Проверяем каждую характеристику
+                for (const stat in choice.effects) {
+                    const currentValue = this.stats[stat];
+                    const change = choice.effects[stat];
+                    const newValue = currentValue + change;
+                    
+                    // Если новое значение <= 0, отмечаем, что выбор должен быть заблокирован
+                    if (newValue <= 0) {
+                        willMakeStatZero = true;
+                        statThatWillBeZero = stat;
+                        break;
+                    }
+                }
+            }
+            
+            // Если выбор приведет к нулевой характеристике, блокируем кнопку
+            if (willMakeStatZero) {
+                button.classList.add('choice-button-disabled');
+                button.disabled = true;
+                
+                // Добавляем подсказку
+                const tooltip = document.createElement('span');
+                tooltip.classList.add('tooltip');
+                tooltip.textContent = `Недостаточно ${this.getStatName(statThatWillBeZero)}`;
+                button.appendChild(tooltip);
+            } else {
+                // Добавляем обработчик клика для активной кнопки
+                button.addEventListener('click', () => {
+                    this.makeChoice(choice);
+                });
+            }
             
             this.choicesContainer.appendChild(button);
         });
     }
     
+    // Вспомогательный метод для получения названия характеристики
+    getStatName(stat) {
+        const statNames = {
+            'time': 'времени',
+            'strength': 'сил',
+            'respect': 'уважения',
+            'charisma': 'харизмы'
+        };
+        return statNames[stat] || stat;
+    }
+    
     makeChoice(choice) {
+        // Дополнительная проверка перед применением эффектов
+        if (choice.effects) {
+            for (const stat in choice.effects) {
+                const newValue = this.stats[stat] + choice.effects[stat];
+                if (newValue <= 0) {
+                    return; // Прерываем выполнение, не применяем эффекты
+                }
+            }
+        }
+        
         // Применяем эффекты к характеристикам
         if (choice.effects) {
             for (const [stat, value] of Object.entries(choice.effects)) {
                 if (this.stats[stat] !== undefined) {
                     this.stats[stat] += value;
+                    
                     // Не даем характеристикам уйти в отрицательные значения
-                    if (this.stats[stat] < 0) this.stats[stat] = 0;
+                    if (this.stats[stat] < 0) {
+                        this.stats[stat] = 0;
+                    }
                 }
             }
+            
             this.updateStatsDisplay();
         }
         
@@ -318,8 +365,26 @@ class VisualNovel {
     }
     
     showEnding() {
-        this.endTitle.textContent = this.currentScene.endingTitle || this.endingTitle;
-        this.endMessage.textContent = this.currentScene.endingMessage || this.endingMessage;
+        // Получаем заголовок и сообщение концовки
+        const endingTitle = this.currentScene.endingTitle || this.endingTitle;
+        const endingMessage = this.currentScene.endingMessage || this.endingMessage;
+        
+        // Отображаем статистику в концовке
+        let statsMessage = `<div class="ending-stats">
+            <p>Итоговые характеристики:</p>
+            <ul>
+                <li>Время: ${this.stats.time}</li>
+                <li>Силы: ${this.stats.strength}</li>
+                <li>Уважение: ${this.stats.respect}</li>
+                <li>Харизма: ${this.stats.charisma}</li>
+            </ul>
+        </div>`;
+        
+        // Устанавливаем заголовок и сообщение
+        this.endTitle.textContent = endingTitle;
+        this.endMessage.innerHTML = endingMessage + statsMessage;
+        
+        // Показываем экран концовки
         this.endScreen.style.display = 'flex';
     }
 }
