@@ -1,10 +1,10 @@
 // Конфигурация игры
 export const CONFIG = {
   initialStats: {
-    time: 10,
+    time: 12,
     strength: 10,
-    respect: 10,
-    charisma: 10
+    respect: 5,
+    charisma: 5
   },
   achievements: {
     "organizer": { title: "Организатор", description: "Успешно провести мероприятие", unlocked: false },
@@ -19,5 +19,5 @@ export const CONFIG = {
     "sveta": { name: "Света", level: 5, max: 10 },
     "otryadLeader": { name: "Ответственный за отряд", level: 5, max: 10 }
   },
-  randomEventChance: 0.1
+  randomEventChance: 0.02
 }; 

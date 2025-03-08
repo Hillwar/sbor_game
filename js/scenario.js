@@ -17,7 +17,7 @@ export const gameScenario = {
         background: "assets/images/camp.jpg",
         character: null,
         speaker: "",
-        text: "Добро пожаловать в лагерь! Ты - старик, и тебе предстоит провести незабываемую смену.",
+        text: "Добро пожаловать на подготовку ко Сбору! Ты - старик, и тебе предстоит провести незабываемые 6 месяцев.",
         choices: [
             {
                 text: "Начать приключение",
@@ -31,7 +31,7 @@ export const gameScenario = {
         background: "assets/images/room.jpg",
         character: null,
         speaker: "",
-        text: "*звонит телефон*",
+        text: "*Звонит телефон*",
         choices: [],
         nextScene: "vojatiy_call"
     },
@@ -100,7 +100,7 @@ export const gameScenario = {
         background: "",
         character: "",
         speaker: "",
-        text: "*приходит уведомление в чате в тг*",
+        text: "*Приходит уведомление в чате в тг*",
         choices: [],
         nextScene: "oinv1.2"
     },
@@ -175,7 +175,7 @@ export const gameScenario = {
         background: "",
         character: null,
         speaker: "Вожатый",
-        text: "Сбор - это люди, именно поэтому важно, чтобы как можно больше новыхз людей захотели поехать на Сбор. Зовите друзей и своих одноклассников обязательно!",
+        text: "Сбор - это люди, именно поэтому важно, чтобы как можно больше новых людей захотели поехать на Сбор. Зовите друзей и своих одноклассников обязательно!",
         choices: [
             {
                 text: "Не хочу я приглашать своего одноклассника, что он забыл на Сборе",
@@ -191,8 +191,8 @@ export const gameScenario = {
                 text: "Обязательно предложу всем",
                 nextScene: "pomposhki",
                 effects: {
-                    time: -2,
-                    strength: -1,
+                    time: -1,
+                    strength: 0,
                     respect: +2,
                     charisma: +1
                 }
@@ -213,15 +213,15 @@ export const gameScenario = {
         background: "",
         character: null,
         speaker: "Петя",
-        text: "Привет! Мне поручили сделать бейджики и подготовить основы для изготовления помпошек.  Но честно, меня не было на 1 ОСУ в прошлом году,ия не понимаю, что за основы и какие нитки нужны. Мулине подойдут?",
+        text: "Привет! Мне поручили сделать бейджики и подготовить основы для изготовления помпошек.  Но честно, меня не было на 1 ОСУ в прошлом году, и я не понимаю, что за основы и какие нитки нужны. Мулине подойдут?",
         choices: [],
         nextScene: "dialog_Petya_2"
     },
-    "dialog_Petya": {
+    "dialog_Petya_2": {
         background: "",
         character: null,
         speaker: "",
-        text: "Ты понимаешь, что Петя не справитсяб. В целом, у тебя есть свободное время... Как ты поступишь? ",
+        text: "Ты понимаешь, что Петя не справится. В целом, у тебя есть свободное время... Как ты поступишь? ",
         choices: [
             {
                 text: "Предложу сходить за нитками вместе",
@@ -259,7 +259,7 @@ export const gameScenario = {
         background: "",
         character: null,
         speaker: "",
-        text: "Прошли все стариковские отряды. отрядная игрушка выбрана, помпошки подготовлены, бейджики выглядят прекрасно. Уже завтра 1ОСУ.",
+        text: "Прошли все стариковские отряды. Отрядная игрушка выбрана, помпошки подготовлены, бейджики выглядят прекрасно. Уже завтра 1ОСУ.",
         choices: [],
         nextScene: "1osy1.2"
     },
@@ -327,8 +327,38 @@ export const gameScenario = {
                 }
             }   
         ],
-        nextScene: "talk_to_new_participant_2"
+        
     },
+    "talk_to_new_participant": {
+        background: "",
+        character: null,
+        speaker: "",
+        text: "Вы подошли к новенькому. Оказалось, что его зовут Альберт.",
+        choices: [
+            {
+                text: "А как ты узнал про Сбор?",
+                nextScene: "talk_to_new_participant_2",
+                effects: {
+                    time: 0,
+                    strength: 0,
+                    respect: 0,
+                    charisma: 0
+                }
+            },
+            {
+                text: "Пока! Было приятно познакомиться! Меня ждет мой друг, я к нему пойду",
+                nextScene: "otryd2",
+                effects: {
+                    time: 0,
+                    strength: 0,
+                    respect: 0,
+                    charisma: -1
+                }
+            }
+        ],
+    
+    },
+       
     "talk_to_new_participant_2": {
         background: "",
         character: null,
@@ -393,7 +423,7 @@ export const gameScenario = {
                 text: "Пойти поговорить с другим новеньким",
                 nextScene: "otryd2",
                 effects: {
-                    time: 0,
+                    time: +1,
                     strength: 0,
                     respect: 0,
                     charisma: 0
@@ -451,7 +481,7 @@ export const gameScenario = {
                 text: "Соглашусь со всеми. Тут нет ничего критичного.",
                 nextScene: "tryd1",
                 effects: {
-                    time: 0,
+                    time: +1,
                     strength: 0,
                     respect: 0,
                     charisma: 0
@@ -464,7 +494,7 @@ export const gameScenario = {
         background: "",
         character: null,
         speaker: "",
-        text: "Отряд подощел к концу. После отряда все решили вместе выпить чаю.",
+        text: "Отряд подошел к концу. После отряда все решили вместе выпить чаю.",
         choices: [],
         nextScene: "tryd2"
     },
@@ -606,7 +636,7 @@ export const gameScenario = {
         background: "",
         character: null,
         speaker: "",
-        text: "Полина ушла. Отряд продолжается. На отряде выяснидлось, что от группы по подготовке ко ВСиПу поступило задание. Необходимо выбрать ответственного.",
+        text: "Полина ушла. Отряд продолжается. На отряде выяснилось, что от группы по подготовке ко ВСиПу поступило задание. Необходимо выбрать ответственного.",
         choices: [
             {
                 text: "Готов взяться за задание",
@@ -666,7 +696,7 @@ export const gameScenario = {
         choices: [
             {
                 text: "Напишу вожатому, обращу его внимание на ситуацию",
-                nextScene: "otryad4",
+                nextScene: "otryd4",
                 effects: {
                     time: 0,
                     strength: 0,
@@ -676,7 +706,7 @@ export const gameScenario = {
             },
             {
                 text: "Промолчу",   
-                nextScene: "otryad4",
+                nextScene: "otryd4",
                 effects: {
                     time: 0,
                     strength: 0,
@@ -686,17 +716,17 @@ export const gameScenario = {
             },
             {
                 text: "Напишу лично, чтобы решить ситуацию",
-                nextScene: "otryad4",
+                nextScene: "otryd4",
                 effects: {
-                    time: 0,
-                    strength: 0,
+                    time: +1,
+                    strength: +1,
                     respect: +1,
                     charisma: +1
                 }
             },
             {
                 text: "Напишу в беседе",
-                nextScene: "otryad4",
+                nextScene: "otryd4",
                 effects: {
                     time: 0,
                     strength: 0,
@@ -707,7 +737,7 @@ export const gameScenario = {
         ],
     },
     
-    "otryad4": {
+    "otryd4": {
         background: "",
         character: null,
         speaker: "Ответственный за отряд",
@@ -715,7 +745,7 @@ export const gameScenario = {
         choices: [
             {
                 text: "Конечно!",
-                nextScene: "otryad5",
+                nextScene: "otryd4.2",
                 effects: {
                     time: -1,
                     strength: 0,
@@ -725,7 +755,7 @@ export const gameScenario = {
             },
             {
                 text: "Не смогу. У меня группа по мероприятию",
-                nextScene: "otryd4.2",
+                nextScene: "otryd5",
                 effects: {
                     time: 0,
                     strength: +1,
@@ -789,7 +819,7 @@ export const gameScenario = {
         background: "",
         character: null,
         speaker: "",
-        text: "После отряда Вероника позвонила предложенному кандидату. К сожалению, он отказался.?",
+        text: "После отряда Вероника позвонила предложенному кандидату. К сожалению, он отказался?",
         choices: [
             {
                 text: "К сожалению, ты не знаешь об интересах ребят в отряде",
@@ -813,7 +843,7 @@ export const gameScenario = {
                 text: "Поздравить Альберта с вступлением в отряд горнистов",
                 nextScene: "otryd5",
                 effects: {
-                    time: +1,
+                    time: +2,
                     strength: 0,
                     respect: 0,
                     charisma: +1
@@ -842,7 +872,7 @@ export const gameScenario = {
                 nextScene: "otryd6",
                 effects: {
                     time: 0,
-                    strength: -1,
+                    strength: 0,
                     respect: +2,
                     charisma: -1
                 }
@@ -903,7 +933,7 @@ export const gameScenario = {
         background: "",
         character: null,
         speaker: "",
-        text: "Начинаются активные поездки на трудовые. Тебе предлагают поехать, но ты сможешь присоединиться только в суььоту. Стоит ли искать возможность доехать?",
+        text: "Начинаются активные поездки на трудовые. Тебе предлагают поехать, но ты сможешь присоединиться только в субботу. Стоит ли искать возможность доехать?",
         choices: [
             {
                 text: "Задай 3 наводящих вопроса для принятия решения",
@@ -937,8 +967,8 @@ export const gameScenario = {
                 text: "Нет",
                 nextScene: "otryd6.4",
                 effects: {
-                    time: +1,
-                    strength: +1,
+                    time: +2,
+                    strength: +2,
                     respect: -1,
                     charisma: 0
                 }
@@ -1165,7 +1195,7 @@ export const gameScenario = {
                 nextScene: "otryd7.3",
                 effects: {
                     time: 0,
-                    strength: 0,
+                    strength: +1,
                     respect: +1,
                     charisma: +1
                 },
@@ -1246,8 +1276,8 @@ export const gameScenario = {
                 text: "Да",
                 nextScene: "ending",
                 effects: {
-                    time: -5,
-                    strength: 0,
+                    time: -1,
+                    strength: -4,
                     respect: +6,
                     charisma: +2
                 },
@@ -1290,7 +1320,7 @@ export const gameScenario = {
             // Лучшая концовка - высокое уважение и харизма
             if (respect >= 15 && charisma >= 12) {
                 game.endingTitle = "Конец: Легенда лагеря";
-                game.endingMessage = "Твое мероприятие было просто невероятным! Все были в восторге, и тебя запомнят как самого творческого организатора. Вожатые намекнули, что в следующем году тебя ждет повышение до вожатого. Ты стал настоящей легендой Сбора!";
+                game.endingMessage = "Ты невероятно проявил себя на Сборе! Все были в восторге, и тебя запомнят как самого творческого организатора. Ты стал настоящей легендой Сбора!";
             } 
             // Хорошая концовка - хорошее уважение и харизма
             else if (respect >= 10 && charisma >= 8) {
@@ -1329,7 +1359,8 @@ export const gameScenario = {
                 text: "Сыграть в мини-игру на силу",
                 nextScene: "strength_game",
                 effects: {
-                    time: -1
+                    time: -1,
+                    strength: +2
                 }
             },
             {
@@ -1360,7 +1391,8 @@ export const gameScenario = {
                 text: "Рассказать историю (мини-игра на харизму)",
                 nextScene: "charisma_game",
                 effects: {
-                    time: -1
+                    time: 0,
+                    charisma: +2
                 }
             },
             {
@@ -1476,7 +1508,7 @@ export const randomEvents = [
         choices: [
             {
                 text: "Показать фотографию другим старикам",
-                effects: { time: -1, charisma: +1, respect: +1 }
+                effects: { time: 0, charisma: +1, respect: +1 }
             },
             {
                 text: "Оставить себе на память",
@@ -1523,7 +1555,7 @@ export const randomEvents = [
         choices: [
             {
                 text: "Предложить им интересную игру",
-                effects: { charisma: +2, respect: +2, time: -2 }
+                effects: { charisma: +2, respect: +2, time: -1 }
             },
             {
                 text: "Рассказать об этом вожатому",
@@ -1535,40 +1567,6 @@ export const randomEvents = [
             }
         ]
     },
-    {
-        text: "Во время обеда ты заметил, что кто-то оставил поднос с едой на столе.",
-        choices: [
-            {
-                text: "Убрать поднос самому",
-                effects: { respect: +1, strength: -1 }
-            },
-            {
-                text: "Найти владельца подноса",
-                effects: { time: -1, respect: +1 }
-            },
-            {
-                text: "Оставить как есть",
-                effects: {}
-            }
-        ]
-    },
-    {
-        text: "Ты нашел интересную настольную игру в игровой комнате.",
-        choices: [
-            {
-                text: "Организовать игровой вечер",
-                effects: { charisma: +2, respect: +2, time: -2 }
-            },
-            {
-                text: "Поиграть с несколькими друзьями",
-                effects: { charisma: +1, time: -1 }
-            },
-            {
-                text: "Отложить на потом",
-                effects: {}
-            }
-        ]
-    }
 ];
 
 // Добавьте функцию для генерации случайного события
