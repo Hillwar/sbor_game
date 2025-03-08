@@ -10,15 +10,21 @@
 //   - effects: эффекты на характеристики (time, strength, respect, charisma)
 // onEnter: функция, которая выполняется при входе в сцену (опционально)
 
-const gameScenario = {
+// Экспортируем сценарий как модуль
+export const gameScenario = {
     // Начальная сцена
     "start": {
-        background: "",
+        background: "assets/images/camp.jpg",
         character: null,
         speaker: "",
-        text: "Ученик 9 класса 1000 школы города Архангельска Стариус вернулся из школы...",
-        choices: [],
-        nextScene: "phone_call"
+        text: "Добро пожаловать в лагерь! Ты - старик, и тебе предстоит провести незабываемую смену.",
+        choices: [
+            {
+                text: "Начать приключение",
+                nextScene: "phone_call",
+                effects: {}
+            }
+        ]
     },
     
     "phone_call": {
@@ -1312,5 +1318,260 @@ const gameScenario = {
                 game.endingMessage = "Твое мероприятие не вызвало особого энтузиазма. Но это ценный опыт, и в следующий раз ты обязательно учтешь ошибки. Главное - не сдаваться!";
             }
         }
-    } 
-}; 
+    },
+    "minigame_strength": {
+        background: "assets/images/gym.jpg",
+        character: null,
+        speaker: "",
+        text: "Тебе нужно подготовить реквизит для мероприятия. Это хорошая возможность потренировать силу!",
+        choices: [
+            {
+                text: "Сыграть в мини-игру на силу",
+                nextScene: "strength_game",
+                effects: {
+                    time: -1
+                }
+            },
+            {
+                text: "Пропустить и продолжить подготовку",
+                nextScene: "next_scene",
+                effects: {}
+            }
+        ]
+    },
+    "strength_game": {
+        background: "assets/images/gym.jpg",
+        character: null,
+        speaker: "",
+        text: "Нажимай на пробел как можно быстрее, чтобы поднять тяжелые коробки!",
+        choices: [],
+        onEnter: function(game) {
+            // Запускаем мини-игру
+            game.minigames.startStrengthMinigame();
+        }
+    },
+    "minigame_charisma": {
+        background: "assets/images/campfire.jpg",
+        character: null,
+        speaker: "",
+        text: "Вечером у костра все рассказывают истории. Это отличная возможность проявить свою харизму!",
+        choices: [
+            {
+                text: "Рассказать историю (мини-игра на харизму)",
+                nextScene: "charisma_game",
+                effects: {
+                    time: -1
+                }
+            },
+            {
+                text: "Просто послушать других",
+                nextScene: "next_scene",
+                effects: {}
+            }
+        ]
+    },
+    "charisma_game": {
+        background: "assets/images/campfire.jpg",
+        character: null,
+        speaker: "",
+        text: "Выбери правильные слова, чтобы твоя история была интересной!",
+        choices: [],
+        onEnter: function(game) {
+            // Запускаем мини-игру
+            game.minigames.startCharismaMinigame();
+        }
+    }
+};
+
+// Добавьте массив случайных событий
+export const randomEvents = [
+    {
+        text: "Во время подготовки к тебе подходит новичок и просит помощи.",
+        choices: [
+            {
+                text: "Помочь новичку",
+                effects: { time: -1, respect: +2, charisma: +1 }
+            },
+            {
+                text: "Извиниться и продолжить свою работу",
+                effects: { respect: -1 }
+            }
+        ]
+    },
+    {
+        text: "Ты замечаешь, что кто-то забыл свой телефон. Рядом никого нет.",
+        choices: [
+            {
+                text: "Отнести телефон вожатому",
+                effects: { time: -1, respect: +2 }
+            },
+            {
+                text: "Оставить на месте",
+                effects: {}
+            },
+            {
+                text: "Посмотреть, что в телефоне",
+                effects: { respect: -2, charisma: -1 }
+            }
+        ]
+    },
+    {
+        text: "Внезапно начинается дождь, а часть реквизита осталась на улице.",
+        choices: [
+            {
+                text: "Быстро побежать спасать реквизит",
+                effects: { strength: -1, respect: +2 }
+            },
+            {
+                text: "Организовать группу для спасения реквизита",
+                effects: { charisma: +2, time: -1 }
+            }
+        ]
+    },
+    {
+        text: "Ты нашел интересную книгу по психологии общения. Потратить время на чтение?",
+        choices: [
+            {
+                text: "Да, это поможет мне лучше понимать людей",
+                effects: { time: -2, charisma: +3 }
+            },
+            {
+                text: "Нет, сейчас нет времени на чтение",
+                effects: {}
+            }
+        ]
+    },
+    {
+        text: "Вожатый предлагает тебе помочь с организацией вечернего мероприятия.",
+        choices: [
+            {
+                text: "С радостью помогу!",
+                effects: { time: -2, respect: +3, strength: -1 }
+            },
+            {
+                text: "Извини, я уже занят другими делами",
+                effects: { respect: -1 }
+            }
+        ]
+    },
+    {
+        text: "Ты заметил, что некоторые новички держатся в стороне от общих активностей.",
+        choices: [
+            {
+                text: "Подойти и вовлечь их в общение",
+                effects: { charisma: +2, respect: +2 }
+            },
+            {
+                text: "Сообщить об этом вожатому",
+                effects: { respect: +1 }
+            },
+            {
+                text: "Не вмешиваться",
+                effects: {}
+            }
+        ]
+    },
+    {
+        text: "Ты нашел старую фотографию прошлогоднего Сбора. Нахлынули воспоминания.",
+        choices: [
+            {
+                text: "Показать фотографию другим старикам",
+                effects: { time: -1, charisma: +1, respect: +1 }
+            },
+            {
+                text: "Оставить себе на память",
+                effects: { charisma: +1 }
+            }
+        ]
+    },
+    {
+        text: "Один из новичков выглядит растерянным и не знает, чем заняться.",
+        choices: [
+            {
+                text: "Предложить ему помощь и рассказать о лагере",
+                effects: { time: -2, respect: +2, charisma: +1 }
+            },
+            {
+                text: "Познакомить его с другими новичками",
+                effects: { time: -1, respect: +1 }
+            },
+            {
+                text: "Пусть сам разбирается, у тебя много дел",
+                effects: {}
+            }
+        ]
+    },
+    {
+        text: "Вожатый просит помочь с переносом тяжелого оборудования для вечернего мероприятия.",
+        choices: [
+            {
+                text: "Конечно, я помогу!",
+                effects: { strength: +2, time: -1, respect: +1 }
+            },
+            {
+                text: "Предложить организовать группу для помощи",
+                effects: { charisma: +1, respect: +1, time: -1 }
+            },
+            {
+                text: "Извиниться, сославшись на другие обязанности",
+                effects: { respect: -1 }
+            }
+        ]
+    },
+    {
+        text: "Ты случайно услышал, как группа новичков обсуждает, что им скучно.",
+        choices: [
+            {
+                text: "Предложить им интересную игру",
+                effects: { charisma: +2, respect: +2, time: -2 }
+            },
+            {
+                text: "Рассказать об этом вожатому",
+                effects: { respect: +1, time: -1 }
+            },
+            {
+                text: "Не вмешиваться",
+                effects: {}
+            }
+        ]
+    },
+    {
+        text: "Во время обеда ты заметил, что кто-то оставил поднос с едой на столе.",
+        choices: [
+            {
+                text: "Убрать поднос самому",
+                effects: { respect: +1, strength: -1 }
+            },
+            {
+                text: "Найти владельца подноса",
+                effects: { time: -1, respect: +1 }
+            },
+            {
+                text: "Оставить как есть",
+                effects: {}
+            }
+        ]
+    },
+    {
+        text: "Ты нашел интересную настольную игру в игровой комнате.",
+        choices: [
+            {
+                text: "Организовать игровой вечер",
+                effects: { charisma: +2, respect: +2, time: -2 }
+            },
+            {
+                text: "Поиграть с несколькими друзьями",
+                effects: { charisma: +1, time: -1 }
+            },
+            {
+                text: "Отложить на потом",
+                effects: {}
+            }
+        ]
+    }
+];
+
+// Добавьте функцию для генерации случайного события
+export function getRandomEvent() {
+    return randomEvents[Math.floor(Math.random() * randomEvents.length)];
+} 

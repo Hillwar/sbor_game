@@ -13,6 +13,11 @@
         <div class="background"></div>
         <div class="characters"></div>
         
+        <!-- Кнопка "Назад" теперь вне ui-container, чтобы быть в верхней части экрана -->
+        <button id="back-button" class="back-button" style="display: none;">
+            <i class="fas fa-arrow-left"></i> Назад
+        </button>
+        
         <div class="ui-container">
             <div class="stats-panel">
                 <div class="stat">
@@ -59,7 +64,6 @@
         </div>
     </div>
     
-    <script src="scenario.js"></script>
-    <script src="game.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html> 
