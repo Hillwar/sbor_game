@@ -1147,7 +1147,7 @@ export const gameScenario = {
         choices: [
             {
                 text: "Встать на завтрак",
-                nextScene: "otryd7",
+                nextScene: "bux",
                 effects: {
                     time: -1,
                     strength: -1,
@@ -1157,7 +1157,7 @@ export const gameScenario = {
             },
             {
                 text: "Не вставать",
-                nextScene: "otryd7",
+                nextScene: "bux",
                 effects: {
                     time: 0,
                     strength: +1,
@@ -1168,6 +1168,35 @@ export const gameScenario = {
 
         ],
     },
+"bux": {
+    background: "",
+    character: null,
+    speaker: "",
+    text: "После трудовой тебе предложили поехать домой на буханке? Поехать?",
+    choices: [
+        {
+            text: "Поехать",
+            nextScene: "otryd7",
+            effects: {
+                time: -1,
+                strength: +5,
+                respect: 0,
+                charisma: +3
+            }
+        },
+        {
+            text: "Нет",
+            nextScene: "otryd7",
+            effects: {
+                time: +2,
+                strength: 0,
+                respect: 0,
+                charisma: +1
+            }
+        }
+
+    ],
+}, 
     "otryd7": {
         background: "",
         character: null,
