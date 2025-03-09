@@ -117,6 +117,10 @@ export class VisualNovel {
     console.log('Запуск игры...');
     this.ui.elements.startScreen.style.display = 'none';
     
+    // Сбрасываем значения концовки при новом запуске игры
+    this.endingTitle = "";
+    this.endingMessage = "";
+    
     try {
       this.loadScene('start');
       console.log('Сцена "start" загружена');
@@ -134,6 +138,18 @@ export class VisualNovel {
     this.stats = { ...CONFIG.initialStats };
     this.ui.updateStats(this.stats);
     this.ui.elements.endScreen.style.display = 'none';
+    
+    // Сбрасываем значения концовки при перезапуске игры
+    this.endingTitle = "";
+    this.endingMessage = "";
+    
+    // Сбрасываем историю сцен и характеристик
+    this.sceneHistory = [];
+    this.statsHistory = [];
+    
+    // Скрываем кнопку "Назад"
+    this.ui.showBackButton(false);
+    
     this.loadScene('start');
   }
   
@@ -186,7 +202,36 @@ export class VisualNovel {
     
     // Если это концовка, показываем экран концовки
     if (scene.isEnding) {
-      this.showEnding();
+      console.log("Загружена концовка:", sceneId);
+      
+      // Если у сцены есть onEnter, вызываем его перед показом концовки
+      if (scene.onEnter) {
+        console.log("Вызываем onEnter для концовки");
+        scene.onEnter(this);
+      }
+      
+      // Обновляем фон и персонажей для последней сцены перед концовкой
+      if (scene.background) {
+        this.ui.elements.background.style.backgroundImage = `url(${scene.background})`;
+      }
+      
+      this.ui.elements.charactersContainer.innerHTML = '';
+      if (scene.character) {
+        const characterImg = document.createElement('img');
+        characterImg.src = scene.character;
+        characterImg.classList.add('character');
+        this.ui.elements.charactersContainer.appendChild(characterImg);
+      }
+      
+      // Показываем последний диалог перед концовкой
+      this.ui.elements.speakerName.textContent = scene.speaker || '';
+      this.animateDialogText(scene.text);
+      
+      // Показываем концовку после небольшой задержки
+      setTimeout(() => {
+        this.showEnding();
+      }, 3000);
+      
       return;
     }
     
@@ -380,9 +425,47 @@ export class VisualNovel {
   }
   
   showEnding() {
-    this.ui.elements.endTitle.textContent = this.currentScene.endingTitle || this.endingTitle;
-    this.ui.elements.endMessage.textContent = this.currentScene.endingMessage || this.endingMessage;
-    this.ui.elements.endScreen.style.display = 'flex';
+    console.log("Показываем концовку:", this.endingTitle, this.endingMessage);
+    
+    // Проверяем, что у нас есть заголовок и сообщение для концовки
+    if (!this.endingTitle && this.currentScene && this.currentScene.endingTitle) {
+      this.endingTitle = this.currentScene.endingTitle;
+    }
+    
+    if (!this.endingMessage && this.currentScene && this.currentScene.endingMessage) {
+      this.endingMessage = this.currentScene.endingMessage;
+    }
+    
+    // Устанавливаем заголовок и сообщение на экране концовки
+    if (this.ui.elements.endTitle) {
+      this.ui.elements.endTitle.textContent = this.endingTitle || "Конец игры";
+    }
+    
+    if (this.ui.elements.endMessage) {
+      this.ui.elements.endMessage.textContent = this.endingMessage || "Спасибо за игру!";
+    }
+    
+    // Показываем экран концовки
+    if (this.ui.elements.endScreen) {
+      this.ui.elements.endScreen.style.display = 'flex';
+    }
+    
+    // Останавливаем фоновую музыку или меняем на финальную
+    if (this.backgroundMusic) {
+      // Можно плавно уменьшить громкость перед остановкой
+      const fadeOut = setInterval(() => {
+        if (this.backgroundMusic.volume > 0.1) {
+          this.backgroundMusic.volume -= 0.1;
+        } else {
+          clearInterval(fadeOut);
+          this.backgroundMusic.pause();
+        }
+      }, 100);
+    }
+    
+    // Сбрасываем текущую сцену
+    this.currentScene = null;
+    this.currentSceneId = null;
   }
   
   unlockAchievement(achievementId) {
@@ -596,5 +679,15 @@ export class VisualNovel {
     }
     
     return false; // Нет истории для возврата
+  }
+  
+  // Добавляем метод для отладки концовок
+  debugEnding() {
+    console.log("=== Отладка концовки ===");
+    console.log("Текущая сцена:", this.currentScene);
+    console.log("Текущие характеристики:", this.stats);
+    console.log("Заголовок концовки:", this.endingTitle);
+    console.log("Сообщение концовки:", this.endingMessage);
+    console.log("=======================");
   }
 } 
