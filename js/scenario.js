@@ -561,7 +561,7 @@ export const gameScenario = {
         choices: [
             {
                 text: "Чувствуя себя хорошо, когда помогаю",
-                nextScene: "tryd3",
+                nextScene: "otryd3",
                 effects: {
                     time: 0,
                     strength: +2,
