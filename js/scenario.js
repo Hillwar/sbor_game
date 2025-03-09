@@ -14,7 +14,7 @@
 export const gameScenario = {
     // Начальная сцена
     "start": {
-        background: "assets/images/camp.jpg",
+        background: "assets/images/back1.jpg",
         character: null,
         speaker: "",
         text: "Добро пожаловать на подготовку ко Сбору! Ты - старик, и тебе предстоит провести незабываемые 6 месяцев.",
@@ -26,18 +26,18 @@ export const gameScenario = {
             }
         ]
     },
-    
+
     "phone_call": {
-        background: "assets/images/room.jpg",
+        background: "assets/images/back2.jpg",
         character: null,
         speaker: "",
         text: "*Звонит телефон*",
         choices: [],
         nextScene: "vojatiy_call"
     },
-    
+
     "vojatiy_call": {
-        background: "assets/images/room.jpg",
+        background: "assets/images/back2.jpg",
         character: "assets/images/vojatiy.jpg",
         speaker: "Вожатый",
         text: "Привет! Ты ездил на Сбор в прошлом году, и мы хотели бы узнать, планируешь ли ты участвовать в подготовке и поехать в лагерь в этом году?",
@@ -59,16 +59,16 @@ export const gameScenario = {
             }
         ]
     },
-    
+
     "rejected": {
-        background: "",
-        character: "",
+        background: "assets/images/back2.jpg",
+        character: "assets/images/vojatiy.jpg",
         speaker: "Вожатый",
         text: "Очень жаль. Выздоравливай!",
         choices: [],
         nextScene: "end_rejected"
     },
-    
+
     "end_rejected": {
         background: "",
         character: null,
@@ -79,10 +79,10 @@ export const gameScenario = {
         endingTitle: "Конец: Домосед",
         endingMessage: "Вы остались дома и упустили возможность провести незабываемое время в лагере. Не всегда комфорт - лучший выбор."
     },
-    
+
     "accepted": {
-        background: "",
-        character: "",
+        background: "assets/images/back2.jpg",
+        character: "assets/images/vojatiy.jpg",
         speaker: "Вожатый",
         text: "Отлично! До скорых встреч.",
         choices: [],
@@ -92,12 +92,12 @@ export const gameScenario = {
         background: "",
         character: "",
         speaker: "",
-        text: "Прошло 2 недели. Стариуса распределили в стариковский отряд и добавили в беседу отряда.",
+        text: "Прошло 2 недели. Тебя распределили в стариковский отряд и добавили в его беседу.",
         choices: [],
         nextScene: "oinv1.1"
     },
     "oinv1.1": {
-        background: "",
+        background: "assets/images/back2.jpg",
         character: "",
         speaker: "",
         text: "*Приходит уведомление в чате в тг*",
@@ -105,7 +105,7 @@ export const gameScenario = {
         nextScene: "oinv1.2"
     },
     "oinv1.2": {
-        background: "",
+        background: "assets/images/sms.jpg",
         character: null,
         speaker: "Ответственный за отряд",
         text: "Привет! Уже в это воскресенье в 16:00 состоится 1-ый стариковский отряд! Подскажи, пожалуйста, будешь ли ты на отряде?",
@@ -121,7 +121,7 @@ export const gameScenario = {
                 }
             },
             {
-                text: "Приду, но не напишу. А зачем? Я же уже сказал своему другу Мише.",
+                text: "Приду, но не напишу. Я же уже сказал своему другу Мише, сейчас занят и не могу ответить.",
                 nextScene: "otryd1",
                 effects: {
                     time: -1,
@@ -142,9 +142,9 @@ export const gameScenario = {
             }
         ]
     },
-    
+
     "otryd1": {
-        background: "",
+        background: "assets/images/back3.jpg",
         character: null,
         speaker: "",
         text: "На отряде обсуждается подготовкка бейджиков новеньким на 1ОСУ. Никто не хочет взять поручение, обращаются к тебе. Как ты поступишь?",
@@ -160,19 +160,19 @@ export const gameScenario = {
                 }
             },
             {
-                text: "Не смогу. У меня всю неделю сбор гербария.",
+                text: "Не смогу. У меня на этой неделе отчетное выступление в театре.",
                 nextScene: "odnoklassnik",
                 effects: {
-                    time: 0,
-                    strength: 0,
-                    respect: 0,
+                    time: +1,
+                    strength: +1,
+                    respect: -1,
                     charisma: 0
                 }
             }
         ],
     },
     "odnoklassnik": {
-        background: "",
+        background: "assets/images/back3.jpg",
         character: null,
         speaker: "Вожатый",
         text: "Сбор - это люди, именно поэтому важно, чтобы как можно больше новых людей захотели поехать на Сбор. Зовите друзей и своих одноклассников обязательно!",
@@ -196,32 +196,42 @@ export const gameScenario = {
                     respect: +2,
                     charisma: +1
                 }
+            },
+            {
+                text: "Отнесу письмо в школу, но рассказывать не буду.",
+                nextScene: "pomposhki",
+                effects: {
+                    time: 0,
+                    strength: 0,
+                    respect: 0,
+                    charisma: 0
+                }
             }
         ],
     },
-    
+
     "pomposhki": {
-        background: "",
+        background: "assets/images/back3.jpg",
         character: null,
         speaker: "",
         text: "После отряда к тебе подходит твой товарищ по отряду Петя.",
         choices: [],
         nextScene: "dialog_Petya"
     },
-    
+
     "dialog_Petya": {
-        background: "",
-        character: null,
+        background: "assets/images/back3.jpg",
+        character: "assets/images/pety.jpg",
         speaker: "Петя",
-        text: "Привет! Мне поручили сделать бейджики и подготовить основы для изготовления помпошек.  Но честно, меня не было на 1 ОСУ в прошлом году, и я не понимаю, что за основы и какие нитки нужны. Мулине подойдут?",
+        text: "Привет! Мне поручили сделать помпошки.  Но честно, меня не было на 1 ОСУ в прошлом году, и я не понимаю, какие нитки нужны. Швейные подойдут?",
         choices: [],
         nextScene: "dialog_Petya_2"
     },
     "dialog_Petya_2": {
-        background: "",
-        character: null,
+        background: "assets/images/back3.jpg",
+        character: "assets/images/pety.jpg",
         speaker: "",
-        text: "Ты понимаешь, что Петя не справится. В целом, у тебя есть свободное время... Как ты поступишь? ",
+        text: "Ты понимаешь, что Петя не знает, что делать. В целом, у тебя есть свободное время... Как ты поступишь? ",
         choices: [
             {
                 text: "Предложу сходить за нитками вместе",
@@ -234,17 +244,17 @@ export const gameScenario = {
                 }
             },
             {
-                text: "Пойду домой спать",
+                text: "Пойду домой отдыхать после отряда",
                 nextScene: "1osy",
                 effects: {
                     time: 0,
-                    strength: 0,
+                    strength: +1,
                     respect: 0,
                     charisma: 0
                 }
             },
             {
-                text: "Куплю сам. Он не справится",
+                text: "Предложу купить самому",
                 nextScene: "1osy",
                 effects: {
                     time: 0,
@@ -256,7 +266,7 @@ export const gameScenario = {
         ]
     },
     "1osy": {
-        background: "",
+        background: "assets/images/osy.jpg",
         character: null,
         speaker: "",
         text: "Прошли все стариковские отряды. Отрядная игрушка выбрана, помпошки подготовлены, бейджики выглядят прекрасно. Уже завтра 1ОСУ.",
@@ -264,16 +274,16 @@ export const gameScenario = {
         nextScene: "1osy1.2"
     },
 
-"1osy1.2": {
-    background: "",
-    character: null,
-    speaker: "",
-    text: "По традиции 1ОСУ начинается со знакомства с новенькими. Все общаются, улыбаются и смеются.",
-    choices: [],
-    nextScene: "1osy1.3"
-},
+    "1osy1.2": {
+        background: "assets/images/osy.jpg",
+        character: null,
+        speaker: "",
+        text: "По традиции 1ОСУ начинается со знакомства с новенькими. Все общаются, улыбаются и смеются.",
+        choices: [],
+        nextScene: "1osy1.3"
+    },
     "1osy1.3": {
-        background: "",
+        background: "assets/images/osy.jpg",
         character: null,
         speaker: "",
         text: "Но тут ты замечаешь, что один новый участник стоит в отдалении, не особо с кем-то разговаривает. Что будешь делать?",
@@ -301,7 +311,7 @@ export const gameScenario = {
         ]
     },
     "samprishol1": {
-        background: "",
+        background: "assets/images/osy.jpg",
         character: null,
         speaker: "",
         text: "Новенкий сам тебя заметил и идет к тебе. Что будешь делать?",
@@ -317,7 +327,7 @@ export const gameScenario = {
                 }
             },
             {
-                text: "Сбежать",
+                text: "Отойти к своему другу",
                 nextScene: "otryd2",
                 effects: {
                     time: 0,
@@ -325,12 +335,12 @@ export const gameScenario = {
                     respect: -1,
                     charisma: -2
                 }
-            }   
+            }
         ],
-        
+
     },
     "talk_to_new_participant": {
-        background: "",
+        background: "assets/images/osy.jpg",
         character: null,
         speaker: "",
         text: "Вы подошли к новенькому. Оказалось, что его зовут Альберт.",
@@ -356,19 +366,19 @@ export const gameScenario = {
                 }
             }
         ],
-    
+
     },
-       
+
     "talk_to_new_participant_2": {
-        background: "",
-        character: null,
+        background: "assets/images/osy.jpg",
+        character: "assets/images/albert_new.jpg",
         speaker: "Альберт",
-        text: "Моя мама была штабисткой. Она была старшей барабанщицей. У меня дома даже фотография есть",
+        text: "Моя мама была штабисткой. Она была старшей барабанщицей. У меня дома даже фотография есть!",
         nextScene: "talk_to_new_participant_3"
     },
     "talk_to_new_participant_3": {
-        background: "",
-        character: null,
+        background: "assets/images/osy.jpg",
+        character: "assets/images/albert_new.jpg",
         speaker: "Ты",
         text: "Вот это да!",
         choices: [
@@ -393,25 +403,24 @@ export const gameScenario = {
                 }
             }
         ],
-        nextScene: "talk_to_new_participant_4"
     },
     "talk_to_new_participant_4": {
-        background: "",
-        character: null,
+        background: "assets/images/osy.jpg",
+        character: "assets/images/albert_new.jpg",
         speaker: "Альберт",
         text: "Я хожу в музыкальную школу и играю на гитаре. Барабаны мне не подходят, они громкие. Я хочу научиться играть на трубе, но не знаю, как это сделать.",
         choices: [],
         nextScene: "talk_to_new_participant_5"
     },
     "talk_to_new_participant_5": {
-        background: "",
-        character: null,
+        background: "assets/images/osy.jpg",
+        character: "assets/images/albert_new.jpg",
         speaker: "Ты",
         text: "Есть у меня ощущение, что на сборе твои мечты могут осуществиться.",
         choices: [
             {
                 text: "Продолжить диалог с Альбертом",
-                nextScene: "otryd2",
+                nextScene: "talk_to_new_participant_6",
                 effects: {
                     time: -1,
                     strength: -1,
@@ -421,6 +430,24 @@ export const gameScenario = {
             },
             {
                 text: "Пойти поговорить с другим новеньким",
+                nextScene: "talk_to_new_participant_6",
+                effects: {
+                    time: +1,
+                    strength: 0,
+                    respect: 0,
+                    charisma: 0
+                }
+            }
+        ],
+    },
+    "talk_to_new_participant_6": {
+        background: "assets/images/new_hug.jpg",
+        character: null,
+        speaker: "Альберт",
+        text: "Спасибо за разговор! Теперь мне на так страшно знакомиться с новыми ребятами!",
+        choices: [
+            {
+                text: "Попращаться с Альбертом",
                 nextScene: "otryd2",
                 effects: {
                     time: +1,
@@ -430,7 +457,6 @@ export const gameScenario = {
                 }
             }
         ],
-        nextScene: "final_prep"
     },
     "otryd2": {
         background: "",
@@ -460,12 +486,12 @@ export const gameScenario = {
             }
         ],
     },
-    
+
     "otryd2.1": {
-        background: "assets/images/room.jpg",
+        background: "assets/images/back4.jpg",
         character: null,
         speaker: "",
-        text: "Отряд был посвящен теме Сбор. По ходу обсуждения, большинство пришло к выводу, что Сбор - это место, где можно провести свое лучшее лето. Ты не согласен с этим мнением. Что скажешь?",
+        text: "Отряд был посвящен теме Сбор. По ходу обсуждения, большинство пришло к выводу, что главное на Сборе - это работа. Ты не согласен с этим мнением. Что скажешь?",
         choices: [
             {
                 text: "Начну отстаивать свою позицию",
@@ -473,7 +499,7 @@ export const gameScenario = {
                 effects: {
                     time: -1,
                     strength: -1,
-                    respect: -1,
+                    respect: +1,
                     charisma: +1
                 }
             },
@@ -481,7 +507,7 @@ export const gameScenario = {
                 text: "Соглашусь со всеми. Тут нет ничего критичного.",
                 nextScene: "tryd1",
                 effects: {
-                    time: +1,
+                    time: 0,
                     strength: 0,
                     respect: 0,
                     charisma: 0
@@ -489,30 +515,58 @@ export const gameScenario = {
             }
         ],
     },
-    
+
     "tryd1": {
-        background: "",
+        background: "assets/images/back4.jpg",
         character: null,
         speaker: "",
         text: "Отряд подошел к концу. После отряда все решили вместе выпить чаю.",
         choices: [],
         nextScene: "tryd2"
     },
-    
+
     "tryd2": {
-        background: "",
-        character: null,
-        speaker: "Новенькая (Света)",
-        text: "Слушай, а чтот такое трудовые? На отряде услышала, но ничего не поняла. Что вы там делаете?",
+        background: "assets/images/back4.jpg",
+        character: "assets/images/sveta.jpg",
+        speaker: "Света (новенькая)",
+        text: "Слушай, а что такое трудовые? На отряде услышала, но ничего не поняла. Что вы там делаете?",
         choices: [
             {
-                text: "Я бы ответил, ...",
-                nextScene: "otryd3",
+                text: "Рассказать подробно",
+                nextScene: "tryd3",
                 effects: {
                     time: -1,
-                    strength: 0,
+                    strength: -1,
                     respect: +2,
                     charisma: +1
+                }
+            },
+            {
+                text: "Потом узнаешь",
+                nextScene: "otryd3",
+                effects: {
+                    time: +1,
+                    strength: 0,
+                    respect: -3,
+                    charisma: -1
+                }
+            },
+        ],
+    },
+    "tryd3": {
+        background: "assets/images/back4.jpg",
+        character: "assets/images/sveta.jpg",
+        speaker: "Света (новенькая)",
+        text: "Спасибо, чтро объяснил! Мне стало намного спокойнее.",
+        choices: [
+            {
+                text: "Чувствуя себя хорошо, когда помогаю",
+                nextScene: "tryd3",
+                effects: {
+                    time: 0,
+                    strength: +2,
+                    respect: 0,
+                    charisma: 0
                 }
             },
         ],
@@ -544,10 +598,10 @@ export const gameScenario = {
                 }
             }
         ],
-        
+
     },
     "otryd3.1": {
-        background: "",
+        background: "assets/images/back5.jpg",
         character: null,
         speaker: "",
         text: "В самом начале отряда появляется Полина - ответственная за тематическую службу.",
@@ -555,8 +609,8 @@ export const gameScenario = {
         nextScene: "otryd3.2"
     },
     "otryd3.2": {
-        background: "",
-        character: null,
+        background: "assets/images/back5.jpg",
+        character: "assets/images/poly.jpg",
         speaker: "Полина",
         text: "Ребята, требуется срочно помочь с документами. Есть кто-то, кто готов?",
         choices: [
@@ -566,7 +620,7 @@ export const gameScenario = {
                 effects: {
                     time: 0,
                     strength: 0,
-                    respect: +1,
+                    respect: +2,
                     charisma: 0
                 }
             },
@@ -576,7 +630,7 @@ export const gameScenario = {
                 effects: {
                     time: 0,
                     strength: 0,
-                    respect: 0,
+                    respect: +1,
                     charisma: 0
                 }
             },
@@ -584,7 +638,7 @@ export const gameScenario = {
                 text: "Промолчать",
                 nextScene: "otryd3.4",
                 effects: {
-                    time: 0,
+                    time: +1,
                     strength: 0,
                     respect: 0,
                     charisma: 0
@@ -604,8 +658,8 @@ export const gameScenario = {
     },
 
     "otryd3.3": {
-        background: "",
-        character: null,
+        background: "assets/images/back5.jpg",
+        character: "assets/images/poly.jpg",
         speaker: "Полина",
         text: "Необходимо отвезти документы на 25-ый лесозавод. Ты готов?",
         choices: [
@@ -620,11 +674,11 @@ export const gameScenario = {
                 }
             },
             {
-                text: "Я там не был ни разу. Страшновато",
+                text: "Ой, это очень далеко от моего дома",
                 nextScene: "otryd3.4",
                 effects: {
-                    time: 0,
-                    strength: 0,
+                    time: +1,
+                    strength: +1,
                     respect: 0,
                     charisma: -1
                 }
@@ -633,7 +687,7 @@ export const gameScenario = {
     },
 
     "otryd3.4": {
-        background: "",
+        background: "assets/images/back5.jpg",
         character: null,
         speaker: "",
         text: "Полина ушла. Отряд продолжается. На отряде выяснилось, что от группы по подготовке ко ВСиПу поступило задание. Необходимо выбрать ответственного.",
@@ -660,36 +714,36 @@ export const gameScenario = {
             },
         ]
     },
-    
+
     "dialog1": {
-        background: "",
+        background: "assets/images/back_night.jpg",
         character: null,
         speaker: "",
         text: "После отряда. Глубокая ночь.",
         choices: [],
         nextScene: "dialog2"
     },
-    
+
     "dialog2": {
-        background: "",
+        background: "assets/images/back_night.jpg",
         character: null,
         speaker: "",
-        text: "Двое новеньких-одноклассников ведут оживленную дискуссию в беседе отряда. В ходе диалога один из собеседников неккоректно обратился к другому.",
+        text: "Старик и новенький ведут оживленную дискуссию в беседе отряда. В ходе диалога один из собеседников неккоректно обратился к другому.",
         choices: [],
         nextScene: "dialog3"
     },
-    
+
     "dialog3": {
-        background: "",
-        character: null,
-        speaker: "Новнький в беседе",
+        background: "assets/images/back_night.jpg",
+        character: "assets/images/sms_screen.jpg",
+        speaker: "Сева (старик)",
         text: "Эй ты, зеленый! Ты идешь завтра на отряд?",
         choices: [],
         nextScene: "dialog4"
     },
 
     "dialog4": {
-        background: "",
+        background: "assets/images/back_night.jpg",
         character: null,
         speaker: "",
         text: "Глубокая ночь, вожатых нет онлайн. Что ты будешь делать?",
@@ -700,12 +754,12 @@ export const gameScenario = {
                 effects: {
                     time: 0,
                     strength: 0,
-                    respect: 0,
-                    charisma: -1
+                    respect: -1,
+                    charisma: 0
                 }
             },
             {
-                text: "Промолчу",   
+                text: "Промолчу",
                 nextScene: "otryd4",
                 effects: {
                     time: 0,
@@ -720,7 +774,7 @@ export const gameScenario = {
                 effects: {
                     time: +1,
                     strength: +1,
-                    respect: +1,
+                    respect: +2,
                     charisma: +1
                 }
             },
@@ -729,14 +783,14 @@ export const gameScenario = {
                 nextScene: "otryd4",
                 effects: {
                     time: 0,
-                    strength: 0,
-                    respect: +2,
+                    strength: -1,
+                    respect: +1,
                     charisma: +1
                 }
             }
         ],
     },
-    
+
     "otryd4": {
         background: "",
         character: null,
@@ -765,10 +819,10 @@ export const gameScenario = {
             }
         ],
     },
-    
+
     "otryd4.2": {
-        background: "",
-        character: null,
+        background: "assets/images/back6.jpg",
+        character: "assets/images/vera.jpg",
         speaker: "",
         text: "На отряд пришла Вероника - ответственная за службу Атрибутика. В отряде необходимо выбрать кого-то в отряд горнистов. Кого ты можешь предложить в качестве кандидата из тех, кого нет на отряде?",
         choices: [
@@ -779,7 +833,7 @@ export const gameScenario = {
                     time: 0,
                     strength: 0,
                     respect: 0,
-                    charisma: 0
+                    charisma: -1
                 }
             },
             {
@@ -789,7 +843,7 @@ export const gameScenario = {
                     time: 0,
                     strength: 0,
                     respect: 0,
-                    charisma: 0
+                    charisma: -1
                 }
             },
             {
@@ -799,7 +853,7 @@ export const gameScenario = {
                     time: 0,
                     strength: 0,
                     respect: 0,
-                    charisma: 0
+                    charisma: -1
                 }
             },
             {
@@ -814,9 +868,9 @@ export const gameScenario = {
             }
         ],
     },
-    
+
     "otryd4.3": {
-        background: "",
+        background: "assets/images/back6.jpg",
         character: null,
         speaker: "",
         text: "После отряда Вероника позвонила предложенному кандидату. К сожалению, он отказался?",
@@ -834,39 +888,46 @@ export const gameScenario = {
         ],
     },
     "otryd4.4": {
-        background: "",
+        background: "assets/images/back6.jpg",
         character: null,
         speaker: "",
         text: "После отряда Вероника позвонила Альберту и предложила вступить в отряд горнистов. Он с радостью согласился, ведь мечтал научиться играть на трубе",
         choices: [
             {
                 text: "Поздравить Альберта с вступлением в отряд горнистов",
-                nextScene: "otryd5",
+                nextScene: "otryd4.5",
                 effects: {
                     time: +2,
                     strength: 0,
                     respect: 0,
                     charisma: +1
                 }
-            },        
-        ],
+            },
+        ]
     },
-    "otryd5": {
-        background: "",
+    "otryd4.5": {
+        background: "assets/images/back6.jpg",
+        character: null,
+        speaker: "Вероника",
+        text: "Спасибо большее за хороший совет. Как здорово, когда есть ребята, на которых можно опереться.",
+        choices: [
+            {
+                text: "Порадоваться, что помог",
+                nextScene: "otryd4.6",
+                effects: {
+                    time: 0,
+                    strength: +2,
+                    respect: 0,
+                    charisma: 0
+                }
+            }]
+    },
+    "otryd4.6": {
+        background: "assets/images/howks_circle.jpg",
         character: null,
         speaker: "",
         text: "После орлятского круга вы с другом идете за куртками. В очередной раз твой друг отмечает, что не собирается застегивать рубашку в орлятском круге, потому что ему будет жарко. Какими будут твои действия?",
         choices: [
-            {
-                text: "Сделать замечание",
-                nextScene: "otryd6",
-                effects: {
-                    time: -1,
-                    strength: -1,
-                    respect: 0,
-                    charisma: -2
-                }
-            },
             {
                 text: "Объяснить, почему так нельзя делать",
                 nextScene: "otryd6",
@@ -874,7 +935,7 @@ export const gameScenario = {
                     time: 0,
                     strength: 0,
                     respect: +2,
-                    charisma: -1
+                    charisma: +1
                 }
             },
             {
@@ -899,7 +960,6 @@ export const gameScenario = {
             }
         ],
     },
-    
     "otryd6": {
         background: "",
         character: null,
@@ -914,7 +974,7 @@ export const gameScenario = {
                     strength: -1,
                     respect: +1,
                     charisma: +1
-                }   
+                }
             },
             {
                 text: "Не хочу",
@@ -928,9 +988,9 @@ export const gameScenario = {
             }
         ]
     },
-    
+
     "otryd6.1": {
-        background: "",
+        background: "assets/images/working.jpg",
         character: null,
         speaker: "",
         text: "Начинаются активные поездки на трудовые. Тебе предлагают поехать, но ты сможешь присоединиться только в субботу. Стоит ли искать возможность доехать?",
@@ -948,7 +1008,7 @@ export const gameScenario = {
         ]
     },
     "otryd6.2": {
-        background: "",
+        background: "assets/images/working.jpg",
         character: null,
         speaker: "",
         text: "Поедешь на трудовую?",
@@ -957,7 +1017,7 @@ export const gameScenario = {
                 text: "Да",
                 nextScene: "otryd6.3",
                 effects: {
-                    time: -3,
+                    time: -2,
                     strength: -2,
                     respect: +2,
                     charisma: +1
@@ -976,7 +1036,7 @@ export const gameScenario = {
         ]
     },
     "otryd6.4": {
-        background: "",
+        background: "assets/images/back7.jpg",
         character: null,
         speaker: "",
         text: "Тебе было поручено подготовить к отряду рассказ о книге Судьба барабанщика. Ты об этом совсем забыл. Наступил день отряда, сегодня нужно рассказать о выполненном поручении. Что будешь делать?",
@@ -1013,18 +1073,18 @@ export const gameScenario = {
             }
         ]
     },
-    
+
     "otryd6.3": {
-        background: "",
+        background: "assets/images/working.jpg",
         character: null,
         speaker: "",
         text: " Наступили выходные. Ты собрал сумки и поехал на Копачевскую поляну, на трудовую.",
         choices: [],
-        nextScene: "otryd6.5",  
+        nextScene: "otryd6.5",
     },
-    
+
     "otryd6.5": {
-        background: "",
+        background: "assets/images/cooking.jpg",
         character: null,
         speaker: "",
         text: "На трудовой вечером встал вопрос о том, кто будет вставать на завтак. Тебе, конечно, совсем не хочется вставать раньше всех. Как поступишь?",
@@ -1034,7 +1094,7 @@ export const gameScenario = {
                 nextScene: "otryd6.6",
                 effects: {
                     time: -1,
-                    strength: -2,
+                    strength: -1,
                     respect: +2,
                     charisma: +1
                 }
@@ -1052,7 +1112,7 @@ export const gameScenario = {
         ],
     },
     "otryd6.6": {
-        background: "",
+        background: "assets/images/potato.jpg",
         character: null,
         speaker: "",
         text: "Вы поехали полоть картошку. Работать предстоит по парам. К кому присоединьшься?",
@@ -1072,7 +1132,7 @@ export const gameScenario = {
                 nextScene: "otryd6.7",
                 effects: {
                     time: 0,
-                    strength: -2,
+                    strength: -1,
                     respect: 0,
                     charisma: +1
                 }
@@ -1080,7 +1140,7 @@ export const gameScenario = {
         ],
     },
     "otryd6.7": {
-        background: "",
+        background: "assets/images/cooking.jpg",
         character: null,
         speaker: "",
         text: "Вечером второго дня снова встал вопрос про подъем на завтрак. Как поступишь?",
@@ -1090,7 +1150,7 @@ export const gameScenario = {
                 nextScene: "otryd7",
                 effects: {
                     time: -1,
-                    strength: -4,
+                    strength: -1,
                     respect: +2,
                     charisma: +1
                 }
@@ -1100,12 +1160,12 @@ export const gameScenario = {
                 nextScene: "otryd7",
                 effects: {
                     time: 0,
-                    strength: 0,
+                    strength: +1,
                     respect: 0,
                     charisma: 0
                 }
             }
-            
+
         ],
     },
     "otryd7": {
@@ -1130,7 +1190,7 @@ export const gameScenario = {
                 effects: {
                     time: 0,
                     strength: 0,
-                    respect: -2,
+                    respect: -3,
                     charisma: 0
                 }
             }
@@ -1159,16 +1219,16 @@ export const gameScenario = {
                     time: 0,
                     strength: 0,
                     respect: -4,
-                    charisma: 0
+                    charisma: -3
                 }
             },
             {
-                text: "Попрошу сделать кого-то в группе",
+                text: "Попрошу помощи",
                 nextScene: "otryd7.2",
                 effects: {
                     time: 0,
-                    strength: 0,
-                    respect: 0,
+                    strength: +1,
+                    respect: +1,
                     charisma: +1
                 }
             },
@@ -1178,24 +1238,24 @@ export const gameScenario = {
                 effects: {
                     time: -1,
                     strength: -1,
-                    respect: +3,
-                    charisma: -1
+                    respect: +2,
+                    charisma: 0
                 }
             }
         ],
     },
     "otryd7.2": {
-        background: "",
+        background: "assets/images/last_otryd.jpg",
         character: null,
         speaker: "",
         text: "На последнем отряде новенький спросил тебя, считаешь ли ты себя стариком. Что ответишь?",
         choices: [
             {
-                text: "Да,потому что",
+                text: "Да,потому что..",
                 nextScene: "otryd7.3",
                 effects: {
                     time: 0,
-                    strength: +1,
+                    strength: 0,
                     respect: +1,
                     charisma: +1
                 },
@@ -1207,13 +1267,23 @@ export const gameScenario = {
                     time: 0,
                     strength: 0,
                     respect: -2,
-                    charisma: -2
+                    charisma: -1
+                }
+            },
+            {
+                text: "Нет",
+                nextScene: "otryd7.3",
+                effects: {
+                    time: 0,
+                    strength: 0,
+                    respect: -4,
+                    charisma: -5
                 }
             }
         ],
     },
     "otryd7.3": {
-        background: "",
+        background: "assets/images/last_otryd.jpg",
         character: null,
         speaker: "Новенький",
         text: "А кем круче поехать на Сбор стариком или новеньким?",
@@ -1224,8 +1294,8 @@ export const gameScenario = {
                 effects: {
                     time: 0,
                     strength: 0,
-                    respect: -1,
-                    charisma: -1
+                    respect: -3,
+                    charisma: +1
                 },
             },
             {
@@ -1234,12 +1304,12 @@ export const gameScenario = {
                 effects: {
                     time: 0,
                     strength: 0,
-                    respect: -1,
+                    respect: -3,
                     charisma: -1
                 }
             },
             {
-                text: "Другое",
+                text: "Я думаю...",
                 nextScene: "sbor",
                 effects: {
                     time: 0,
@@ -1259,7 +1329,7 @@ export const gameScenario = {
         nextScene: "sbor.1",
     },
     "sbor.1": {
-        background: "",
+        background: "assets/images/bob.jpg",
         character: null,
         speaker: "",
         text: "Осталось всего пару дней до сбора. *звонок*",
@@ -1287,9 +1357,9 @@ export const gameScenario = {
                 nextScene: "ploho",
                 effects: {
                     time: +8,
-                    strength: +2,
-                    respect: -9,
-                    charisma: -6
+                    strength: 0,
+                    respect: 0,
+                    charisma: 0
                 }
             }
         ],
@@ -1310,42 +1380,42 @@ export const gameScenario = {
         text: "А там синева и небо, поле ромашек и целая жизнь взахлеб!",
         choices: [],
         isEnding: true,
-        onEnter: function(game) {
+        onEnter: function (game) {
             // Определяем концовку на основе статистики
             let respect = game.stats.respect;
             let charisma = game.stats.charisma;
             let strength = game.stats.strength;
             let time = game.stats.time;
-            
+
             // Лучшая концовка - высокое уважение и харизма
-            if (respect >= 15 && charisma >= 12) {
+            if (respect >= 15 && charisma >= 18) {
                 game.endingTitle = "Конец: Легенда лагеря";
-                game.endingMessage = "Ты невероятно проявил себя на Сборе! Все были в восторге, и тебя запомнят как самого творческого организатора. Ты стал настоящей легендой Сбора!";
-            } 
+                game.endingMessage = "Ты невероятно проявил себя в подготовке к Сбору! Ты смог соблюсти баланс и при этом смог помочь многим. Ты стал настоящей легендой подготовки!";
+            }
             // Хорошая концовка - хорошее уважение и харизма
-            else if (respect >= 10 && charisma >= 8) {
-                game.endingTitle = "Конец: Хороший организатор";
-                game.endingMessage = "Мероприятие прошло хорошо. Были недочеты, но в целом все остались довольны. Ты заслужил уважение и новичков, и стариков. Хороший опыт на будущее!";
+            else if (respect >= 8 && charisma >= 10) {
+                game.endingTitle = "Конец: МегаХорош";
+                game.endingMessage = "Подготовка прошла хорошо. На тебе можно опереться в отряде. Дальше больше!";
             }
             // Концовка с высокой силой, но низким уважением
             else if (strength >= 8 && respect < 8) {
                 game.endingTitle = "Конец: Выносливый, но не командный игрок";
-                game.endingMessage = "Ты отлично справлялся с физическими задачами, но не смог наладить отношения с командой. Твое мероприятие прошло средне, потому что ты делал всё в одиночку, не доверяя другим.";
+                game.endingMessage = "Ты отлично справляешься с задачами, но не смог наладить отношения с командой. Помни, что ты не один!";
             }
             // Концовка с хорошим тайм-менеджментом
-            else if (time >= 8) {
+            else if (time >= 10) {
                 game.endingTitle = "Конец: Мастер тайм-менеджмента";
-                game.endingMessage = "Ты отлично распределил свое время между подготовкой к Сбору и личными делами. Мероприятие прошло неплохо, хотя и без особых восторгов. Зато ты не выгорел и сохранил энергию для будущих проектов.";
+                game.endingMessage = "Ты отлично распределил свое время между подготовкой к Сбору и личными делами. Может пришла пора в следующем году стать тематикой?";
             }
             // Средняя концовка
             else if (respect >= 5 && charisma >= 5) {
-                game.endingTitle = "Конец: Обычный старик";
-                game.endingMessage = "Твое мероприятие прошло нормально. Ничего особенного, но и провалом не назовешь. Ты стал частью команды стариков, и это главное.";
+                game.endingTitle = "Конец: Нераскрывшийся бутон";
+                game.endingMessage = "Тебе не хватило сил и времени стать частью коллектива. Не время расстраиваться! Всё получится на СБОРе. Помни, что добро заразно. И возьми конфет на всякий случай...";
             }
             // Плохая концовка
             else {
-                game.endingTitle = "Конец: Первый блин комом";
-                game.endingMessage = "Твое мероприятие не вызвало особого энтузиазма. Но это ценный опыт, и в следующий раз ты обязательно учтешь ошибки. Главное - не сдаваться!";
+                game.endingTitle = "Конец: Новенький";
+                game.endingMessage = "Альберт, а ты почему проходишь тест за старика?";
             }
         }
     },
@@ -1376,7 +1446,7 @@ export const gameScenario = {
         speaker: "",
         text: "Нажимай на пробел как можно быстрее, чтобы поднять тяжелые коробки!",
         choices: [],
-        onEnter: function(game) {
+        onEnter: function (game) {
             // Запускаем мини-игру
             game.minigames.startStrengthMinigame();
         }
@@ -1408,7 +1478,7 @@ export const gameScenario = {
         speaker: "",
         text: "Выбери правильные слова, чтобы твоя история была интересной!",
         choices: [],
-        onEnter: function(game) {
+        onEnter: function (game) {
             // Запускаем мини-игру
             game.minigames.startCharismaMinigame();
         }
@@ -1422,11 +1492,11 @@ export const randomEvents = [
         choices: [
             {
                 text: "Помочь новичку",
-                effects: { time: -1, respect: +2, charisma: +1 }
+                effects: {time: -1, respect: +2, charisma: +1}
             },
             {
                 text: "Извиниться и продолжить свою работу",
-                effects: { respect: -1 }
+                effects: {respect: -1}
             }
         ]
     },
@@ -1435,7 +1505,7 @@ export const randomEvents = [
         choices: [
             {
                 text: "Отнести телефон вожатому",
-                effects: { time: -1, respect: +2 }
+                effects: {time: -1, respect: +2}
             },
             {
                 text: "Оставить на месте",
@@ -1443,7 +1513,7 @@ export const randomEvents = [
             },
             {
                 text: "Посмотреть, что в телефоне",
-                effects: { respect: -2, charisma: -1 }
+                effects: {respect: -2, charisma: -1}
             }
         ]
     },
@@ -1452,11 +1522,11 @@ export const randomEvents = [
         choices: [
             {
                 text: "Быстро побежать спасать реквизит",
-                effects: { strength: -1, respect: +2 }
+                effects: {strength: -1, respect: +2}
             },
             {
                 text: "Организовать группу для спасения реквизита",
-                effects: { charisma: +2, time: -1 }
+                effects: {charisma: +2, time: -1}
             }
         ]
     },
@@ -1465,7 +1535,7 @@ export const randomEvents = [
         choices: [
             {
                 text: "Да, это поможет мне лучше понимать людей",
-                effects: { time: -2, charisma: +3 }
+                effects: {time: -2, charisma: +3}
             },
             {
                 text: "Нет, сейчас нет времени на чтение",
@@ -1478,11 +1548,11 @@ export const randomEvents = [
         choices: [
             {
                 text: "С радостью помогу!",
-                effects: { time: -2, respect: +3, strength: -1 }
+                effects: {time: -2, respect: +3, strength: -1}
             },
             {
                 text: "Извини, я уже занят другими делами",
-                effects: { respect: -1 }
+                effects: {respect: -1}
             }
         ]
     },
@@ -1491,11 +1561,11 @@ export const randomEvents = [
         choices: [
             {
                 text: "Подойти и вовлечь их в общение",
-                effects: { charisma: +2, respect: +2 }
+                effects: {charisma: +2, respect: +2}
             },
             {
                 text: "Сообщить об этом вожатому",
-                effects: { respect: +1 }
+                effects: {respect: +1}
             },
             {
                 text: "Не вмешиваться",
@@ -1508,11 +1578,11 @@ export const randomEvents = [
         choices: [
             {
                 text: "Показать фотографию другим старикам",
-                effects: { time: 0, charisma: +1, respect: +1 }
+                effects: {time: 0, charisma: +1, respect: +1}
             },
             {
                 text: "Оставить себе на память",
-                effects: { charisma: +1 }
+                effects: {charisma: +1}
             }
         ]
     },
@@ -1521,11 +1591,11 @@ export const randomEvents = [
         choices: [
             {
                 text: "Предложить ему помощь и рассказать о лагере",
-                effects: { time: -2, respect: +2, charisma: +1 }
+                effects: {time: -2, respect: +2, charisma: +1}
             },
             {
                 text: "Познакомить его с другими новичками",
-                effects: { time: -1, respect: +1 }
+                effects: {time: -1, respect: +1}
             },
             {
                 text: "Пусть сам разбирается, у тебя много дел",
@@ -1538,15 +1608,15 @@ export const randomEvents = [
         choices: [
             {
                 text: "Конечно, я помогу!",
-                effects: { strength: +2, time: -1, respect: +1 }
+                effects: {strength: +2, time: -1, respect: +1}
             },
             {
                 text: "Предложить организовать группу для помощи",
-                effects: { charisma: +1, respect: +1, time: -1 }
+                effects: {charisma: +1, respect: +1, time: -1}
             },
             {
                 text: "Извиниться, сославшись на другие обязанности",
-                effects: { respect: -1 }
+                effects: {respect: -1}
             }
         ]
     },
@@ -1555,11 +1625,11 @@ export const randomEvents = [
         choices: [
             {
                 text: "Предложить им интересную игру",
-                effects: { charisma: +2, respect: +2, time: -1 }
+                effects: {charisma: +2, respect: +2, time: -1}
             },
             {
                 text: "Рассказать об этом вожатому",
-                effects: { respect: +1, time: -1 }
+                effects: {respect: +1, time: -1}
             },
             {
                 text: "Не вмешиваться",
