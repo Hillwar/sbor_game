@@ -809,7 +809,7 @@ export const gameScenario = {
             },
             {
                 text: "Не смогу. У меня группа по мероприятию",
-                nextScene: "otryd5",
+                nextScene: "otryd6",
                 effects: {
                     time: 0,
                     strength: +1,
