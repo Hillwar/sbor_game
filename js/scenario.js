@@ -933,7 +933,7 @@ export const gameScenario = {
                 nextScene: "otryd6",
                 effects: {
                     time: 0,
-                    strength: 0,
+                    strength: +1,
                     respect: +2,
                     charisma: +1
                 }
@@ -1000,7 +1000,7 @@ export const gameScenario = {
                 nextScene: "otryd6.2",
                 effects: {
                     time: 0,
-                    strength: 0,
+                    strength: +1,
                     respect: +1,
                     charisma: 0
                 }
@@ -1046,7 +1046,7 @@ export const gameScenario = {
                 nextScene: "otryd7",
                 effects: {
                     time: 0,
-                    strength: 0,
+                    strength: +1,
                     respect: -1,
                     charisma: +2
                 }
@@ -1227,7 +1227,7 @@ export const gameScenario = {
                 nextScene: "otryd7.2",
                 effects: {
                     time: 0,
-                    strength: +1,
+                    strength: +2,
                     respect: +1,
                     charisma: +1
                 }
