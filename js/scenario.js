@@ -1403,14 +1403,49 @@ export const gameScenario = {
         endingMessage: "Вы остались дома и упустили возможность провести незабываемое время в лагере. Лучше строить планы заранее."
     },
     "ending": {
-        background: "assets/images/camp.jpg",
+        background: "",
         character: null,
         speaker: "",
-        choices: [],
         isEnding: true,
-        endingTitle: "Конец: Сборовец",
-        endingMessage: "А там синева и небо, поле ромашек и целая жизнь взахлеб!"
-        },
+        onEnter: function (game) {
+            // Определяем концовку на основе статистики
+            let respect = game.stats.respect;
+            let charisma = game.stats.charisma;
+            let strength = game.stats.strength;
+            let time = game.stats.time;
+
+            // Лучшая концовка - высокое уважение и харизма
+            if (respect >= 12 && charisma >= 18) {
+                game.endingTitle = "Конец: Легенда лагеря";
+                game.endingMessage = "Ты невероятно проявил себя в подготовке к Сбору! Ты смог соблюсти баланс и при этом смог помочь многим. Ты стал настоящей легендой подготовки!";
+            }
+            // Хорошая концовка - хорошее уважение и харизма
+            else if (respect >= 8 && charisma >= 10) {
+                game.endingTitle = "Конец: МегаХорош";
+                game.endingMessage = "Подготовка прошла хорошо. На тебе можно опереться в отряде. Дальше больше!";
+            }
+            // Концовка с высокой силой, но низким уважением
+            else if (strength >= 8 && respect < 8) {
+                game.endingTitle = "Конец: Выносливый, но не командный игрок";
+                game.endingMessage = "Ты отлично справляешься с задачами, но не смог наладить отношения с командой. Помни, что ты не один!";
+            }
+            // Концовка с хорошим тайм-менеджментом
+            else if (time >= 10) {
+                game.endingTitle = "Конец: Мастер тайм-менеджмента";
+                game.endingMessage = "Ты отлично распределил свое время между подготовкой к Сбору и личными делами. Может пришла пора в следующем году стать тематикой?";
+            }
+            // Средняя концовка
+            else if (respect >= 5 && charisma >= 5) {
+                game.endingTitle = "Конец: Нераскрывшийся бутон";
+                game.endingMessage = "Тебе не хватило сил и времени стать частью коллектива. Не время расстраиваться! Всё получится на СБОРе. Помни, что добро заразно. И возьми конфет на всякий случай...";
+            }
+            // Плохая концовка
+            else {
+                game.endingTitle = "Конец: Новенький";
+                game.endingMessage = "Альберт, а ты почему проходишь тест за старика?";
+            }
+        }
+    },
     "minigame_strength": {
         background: "assets/images/gym.jpg",
         character: null,

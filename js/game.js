@@ -228,9 +228,7 @@ export class VisualNovel {
       this.animateDialogText(scene.text);
       
       // Показываем концовку после небольшой задержки
-      setTimeout(() => {
-        this.showEnding();
-      }, 3000);
+      this.showEnding();
       
       return;
     }
